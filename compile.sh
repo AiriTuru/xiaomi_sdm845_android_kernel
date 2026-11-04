@@ -14,14 +14,14 @@ ARCH="arm64"
 
 DEFCONFIG="beryllium_defconfig"
 KERNEL_IMAGE="Image.gz-dtb"
-KERNEL_NAME="Miru"
+KERNEL_NAME="Saftia"
 
 DO_CLEAN="true"
 
 export PATH="${CLANG_BIN}:${PATH}"
 export ARCH="${ARCH}"
 export SUBARCH="${ARCH}"
-export KBUILD_BUILD_USER=miru
+export KBUILD_BUILD_USER=airi
 export KBUILD_BUILD_HOST=archlinux
 
 MAKE_ARGS=(
@@ -44,7 +44,7 @@ MAKE_ARGS=(
 	CROSS_COMPILE="aarch64-linux-gnu-"
 	CROSS_COMPILE_ARM32="arm-linux-gnueabi-"
 	CLANG_TRIPLE="aarch64-linux-gnu-"
-	LOCALVERSION="-美瑠/${KERNEL_NAME}"
+	LOCALVERSION="-${KERNEL_NAME}"
 )
 
 hard_clean() {
@@ -126,6 +126,9 @@ package_anykernel() {
 	elif [ "${variant}" = "se" ]; then
 		current_kernel_name="${current_kernel_name}-SE"
 	fi
+
+	rm -rf "$ANYKERNEL_DIR/banner"
+	echo maintainer: @AiriTuru > "$ANYKERNEL_DIR/banner"
 
 	if [ -d "${ANYKERNEL_DIR}" ]; then
 		cd "${ANYKERNEL_DIR}"
